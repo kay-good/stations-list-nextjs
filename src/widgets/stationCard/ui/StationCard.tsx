@@ -1,33 +1,9 @@
 import { useState } from "react";
-import { Station } from "../types/types";
+import { useVoteStation } from "@/features/voteStation/useVoteSation";
+import { Station } from "@/shared/types/types";
 
-export default function StationCard({ station, url, index }: { station: Station, url: string, index: number }) {
-    const [voted, setVoted] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState("")
-
-    async function sendLike(uuid: string) {
-        try {
-            const response = await fetch(`${url}/json/vote/${uuid}`)
-            if (!response.ok) {
-                throw new Error("Failed to vote for the station")
-            }
-            const data = await response.json()
-            if (!data.ok) {
-                throw new Error("You have already voted")
-            }
-            setVoted(true)
-
-        } catch (err) {
-            if (err instanceof Error) {
-                setError(err.message)
-            } else {
-                setError("An unknown error occured")
-            }
-        } finally {
-            setLoading(false)
-        }
-    }
+export default function StationCard({ station, index }: { station: Station, index: number }) {
+    const { sendLike, loading, error } = useVoteStation(station.stationuuid);
 
     function handleClick() {
         sendLike(station.stationuuid)
@@ -36,10 +12,10 @@ export default function StationCard({ station, url, index }: { station: Station,
     return (
         <div className="">
             <div className="flex flex-row justify-between">
-                <div className="flex justify-center items-center text-6xl text-white font-bold max-w-1/10">
+                <div className="flex justify-center items-center text-6xl text-white dark:text-gray-100 font-bold max-w-1/10">
                     {index + 1}.
                 </div>
-                <div className="flex-grow-1 shrink-0 bg-white mb-2 border rounded-full border-red-50 p-2 px-15 max-w-9/10">
+                <div className="flex-grow-1 shrink-0 bg-white dark:bg-gray-800 mb-2 border rounded-full border-red-50 p-2 px-15 max-w-9/10">
                     <div className="flex flex-row justify-between items-center">
                         <div className="py-4 pr-2 truncate">
                             <div className="text-3xl font-bold truncate">{station.name}</div>

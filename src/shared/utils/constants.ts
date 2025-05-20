@@ -1,0 +1,1 @@
+export const API_URL = '_api._tcp.radio-browser.info';

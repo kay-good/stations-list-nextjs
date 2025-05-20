@@ -35,6 +35,12 @@ body {
   background-attachment: fixed;
 }
 
+@media (prefers-color-scheme: dark) {
+  .content {
+    background-image: url("/bg-waves.webp");
+  }
+}
+
 .like::after {
   content: "";
   display: block;

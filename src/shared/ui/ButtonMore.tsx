@@ -13,6 +13,6 @@ export default function ButtonMore() {
     }
 
     return (
-        <button className='bg-white py-5 px-7 rounded-full mx-auto font-bold cursor-pointer hover:bg-gray-100' onClick={changePage}>Load more {'>'}</button>
+        <button className='bg-white py-5 px-7 rounded-full mx-auto font-bold dark:bg-gray-800 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700' onClick={changePage}>Load more {'>'}</button>
     )
 }
